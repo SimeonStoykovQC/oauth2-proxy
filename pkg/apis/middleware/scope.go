@@ -47,6 +47,7 @@ type RequestScope struct {
 func GetRequestScope(req *http.Request) *RequestScope {
 	scope := req.Context().Value(RequestScopeKey)
 	if scope == nil {
+		logger.Errorf("Simeon: scope is nil, request is %v", req)
 		return nil
 	}
 
