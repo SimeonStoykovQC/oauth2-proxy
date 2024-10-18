@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
 )
 
 type scopeKey string
@@ -48,7 +47,6 @@ type RequestScope struct {
 func GetRequestScope(req *http.Request) *RequestScope {
 	scope := req.Context().Value(RequestScopeKey)
 	if scope == nil {
-		logger.Errorf("Simeon: scope is nil, request is %v", req)
 		return nil
 	}
 

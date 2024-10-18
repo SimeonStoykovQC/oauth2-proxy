@@ -1110,6 +1110,7 @@ func (p *OAuthProxy) getAuthenticatedSession(rw http.ResponseWriter, req *http.R
 
 	if session == nil {
 		logger.Errorf("Simeon: Authenticating session is nil")
+		logger.Errorf("Simeon: Request is: %v", req)
 		return nil, ErrNeedsLogin
 	}
 
