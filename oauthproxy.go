@@ -1022,6 +1022,7 @@ func (p *OAuthProxy) Proxy(rw http.ResponseWriter, req *http.Request) {
 		}
 
 		logger.Printf("No valid authentication in request. Initiating login.")
+		logger.Printf("Simeon was here!")
 		if p.SkipProviderButton {
 			// start OAuth flow, but only with the default login URL params - do not
 			// consider this request's query params as potential overrides, since
