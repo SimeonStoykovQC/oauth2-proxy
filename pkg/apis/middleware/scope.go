@@ -57,6 +57,7 @@ func GetRequestScope(req *http.Request) *RequestScope {
 
 // AddRequestScope adds a RequestScope to a request
 func AddRequestScope(req *http.Request, scope *RequestScope) *http.Request {
+	log.Printf("Simeon: to the context we add scope '%v' at key '%v', when it is '%v'", scope, RequestScopeKey, req.Context())
 	ctx := context.WithValue(req.Context(), RequestScopeKey, scope)
 	return req.WithContext(ctx)
 }
