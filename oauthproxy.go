@@ -587,6 +587,7 @@ func isAllowedPath(req *http.Request, route allowedRoute) bool {
 
 // IsAllowedRoute is used to check if the request method & path is allowed without auth
 func (p *OAuthProxy) isAllowedRoute(req *http.Request) bool {
+	logger.Errorf("Simeon: allowed routes is: %v", p.allowedRoutes)
 	for _, route := range p.allowedRoutes {
 		if isAllowedMethod(req, route) && isAllowedPath(req, route) {
 			return true
@@ -1007,7 +1008,7 @@ func (p *OAuthProxy) AuthOnly(rw http.ResponseWriter, req *http.Request) {
 // them to authenticate
 func (p *OAuthProxy) Proxy(rw http.ResponseWriter, req *http.Request) {
 	session, err := p.getAuthenticatedSession(rw, req)
-	logger.Printf("Simeon: session is %v, err is %v", session, err)
+	logger.Printf("Simeon: session is '%v', err is '%v'.", session, err)
 	switch err {
 	case nil:
 		// we are authenticated
