@@ -350,6 +350,7 @@ func (p *OAuthProxy) buildProxySubrouter(s *mux.Router) {
 // the OAuth2 Proxy authentication logic kicks in.
 // For example forcing HTTPS or health checks.
 func buildPreAuthChain(opts *options.Options, sessionStore sessionsapi.SessionStore) (alice.Chain, error) {
+	logger.Printf("Simeon: buildPreAuthChain gets called! opts: '%v', sessionStore: '%v'", opts, sessionStore)
 	chain := alice.New(middleware.NewScope(opts.ReverseProxy, opts.Logging.RequestIDHeader))
 
 	if opts.ForceHTTPS {
