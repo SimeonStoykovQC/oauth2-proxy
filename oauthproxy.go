@@ -1007,6 +1007,7 @@ func (p *OAuthProxy) AuthOnly(rw http.ResponseWriter, req *http.Request) {
 // them to authenticate
 func (p *OAuthProxy) Proxy(rw http.ResponseWriter, req *http.Request) {
 	session, err := p.getAuthenticatedSession(rw, req)
+	logger.Printf("Simeon: session is %v, err is %v", session, err)
 	switch err {
 	case nil:
 		// we are authenticated
