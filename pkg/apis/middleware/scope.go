@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
+    "log"
 )
 
 type scopeKey string
@@ -45,6 +46,7 @@ type RequestScope struct {
 
 // GetRequestScope returns the current request scope from the given request
 func GetRequestScope(req *http.Request) *RequestScope {
+	log.Printf("Simeon: the req.context is '%v'", req.Context())
 	scope := req.Context().Value(RequestScopeKey)
 	if scope == nil {
 		return nil
