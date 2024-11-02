@@ -321,6 +321,7 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 	// The authonly path should be registered separately to prevent it from getting no-cache headers.
 	// We do this to allow users to have a short cache (via nginx) of the response to reduce the
 	// likelihood of multiple requests trying to refresh sessions simultaneously.
+	fmt.Printf("proxyPrefix + authOnlyPath is '%v'", proxyPrefix + authOnlyPath)
 	r.Path(proxyPrefix + authOnlyPath).Handler(p.sessionChain.ThenFunc(p.AuthOnly))
 
 	// This will register all of the paths under the proxy prefix, except the auth only path so that no cache headers
@@ -336,7 +337,7 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 		path, _ := route.GetPathTemplate()
 		methods, _ := route.GetMethods()
-		fmt.Printf("Registered route: %s, methods: %v\n", path, methods)
+		fmt.Printf("Registered route: %v, methods: %v\n", path, methods)
 		return nil
 	})	
 }
