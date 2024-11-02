@@ -335,30 +335,11 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 	p.serveMux = r
 
 	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
-		// Try to get the path template
-		path, err := route.GetPathTemplate()
-		if err != nil {
-			path = "N/A (no path template)"
-		}
-	
-		// Try to get the path regex (if a template is not available)
-		pathRegex, err := route.GetPathRegexp()
-		if err != nil {
-			pathRegex = "N/A (no path regex)"
-		}
-	
-		// Try to get the methods allowed on the route
-		methods, err := route.GetMethods()
-		if err != nil {
-			methods = []string{"N/A (no methods specified)"}
-		}
-	
-		// Print details about the route
-		fmt.Printf("Registered route: Path Template: %s, Path Regex: %s, Methods: %v\n", path, pathRegex, methods)
-	
+		tpl, err1 := route.GetPathTemplate()
+		met, err2 := route.GetMethods()
+		fmt.Println(tpl, err1, met, err2)
 		return nil
 	})
-	
 }
 
 func (p *OAuthProxy) buildProxySubrouter(s *mux.Router) {
