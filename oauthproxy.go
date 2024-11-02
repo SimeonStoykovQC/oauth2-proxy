@@ -118,6 +118,7 @@ type OAuthProxy struct {
 
 // NewOAuthProxy creates a new instance of OAuthProxy from the options provided
 func NewOAuthProxy(opts *options.Options, validator func(string) bool) (*OAuthProxy, error) {
+	logger.Printf("Simeon: NewOAuthProxy with ProxyPrefix '%v' and in general options.", opts.ProxyPrefix, opts)
 	sessionStore, err := sessions.NewSessionStore(&opts.Session, &opts.Cookie)
 	if err != nil {
 		return nil, fmt.Errorf("error initialising session store: %v", err)
