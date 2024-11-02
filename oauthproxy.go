@@ -245,6 +245,7 @@ func NewOAuthProxy(opts *options.Options, validator func(string) bool) (*OAuthPr
 		appDirector:        appDirector,
 		encodeState:        opts.EncodeState,
 	}
+	fmt.Printf("Simeon: Calling 'buildServeMux' with opts.ProxyPrefix '%v'\n", opts.ProxyPrefix)
 	p.buildServeMux(opts.ProxyPrefix)
 
 	if err := p.setupServer(opts); err != nil {
@@ -323,6 +324,7 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 
 	// This will register all of the paths under the proxy prefix, except the auth only path so that no cache headers
 	// are not applied.
+	fmt.Printf("Simeon: Calling 'buildProxySubrouter' with subrpoter '%v'\n", r.PathPrefix(proxyPrefix).Subrouter())
 	p.buildProxySubrouter(r.PathPrefix(proxyPrefix).Subrouter())
 
 	// Register serveHTTP last so it catches anything that isn't already caught earlier.
@@ -336,6 +338,7 @@ func (p *OAuthProxy) buildProxySubrouter(s *mux.Router) {
 
 	s.Path(signInPath).HandlerFunc(p.SignIn)
 	s.Path(oauthStartPath).HandlerFunc(p.OAuthStart)
+	fmt.Printf("Simeon: Adding handlerfunc with 'p.OAuthCallback' '%v'\n", p.OAuthCallback)
 	s.Path(oauthCallbackPath).HandlerFunc(p.OAuthCallback)
 
 	// Static file paths
@@ -854,6 +857,7 @@ func (p *OAuthProxy) doOAuthStart(rw http.ResponseWriter, req *http.Request, ove
 // OAuthCallback is the OAuth2 authentication flow callback that finishes the
 // OAuth2 authentication flow
 func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
+	fmt.Printf("Simeon: IN THE 'OAuthCallback' with req '%v'!!!!\n", req)
 	remoteAddr := ip.GetClientString(p.realClientIPParser, req, true)
 
 	// finish the oauth cycle
