@@ -338,7 +338,7 @@ func (p *OAuthProxy) buildProxySubrouter(s *mux.Router) {
 
 	s.Path(signInPath).HandlerFunc(p.SignIn)
 	s.Path(oauthStartPath).HandlerFunc(p.OAuthStart)
-	fmt.Printf("Simeon: Adding handlerfunc with 'p.OAuthCallback' '%v'\n", p.OAuthCallback)
+	fmt.Printf("Simeon: Adding handlerfunc with callback path '%v' 'p.OAuthCallback' '%v'\n", oauthCallbackPath, p.OAuthCallback)
 	s.Path(oauthCallbackPath).HandlerFunc(p.OAuthCallback)
 
 	// Static file paths
