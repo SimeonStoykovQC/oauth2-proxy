@@ -332,6 +332,13 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 	// Anything that got to this point needs to have a session loaded.
 	r.PathPrefix("/").Handler(p.sessionChain.ThenFunc(p.Proxy))
 	p.serveMux = r
+
+	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
+		path, _ := route.GetPathTemplate()
+		methods, _ := route.GetMethods()
+		fmt.Printf("Registered route: %s, methods: %v\n", path, methods)
+		return nil
+	})	
 }
 
 func (p *OAuthProxy) buildProxySubrouter(s *mux.Router) {
