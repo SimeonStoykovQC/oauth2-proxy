@@ -325,7 +325,7 @@ func (p *OAuthProxy) buildServeMux(proxyPrefix string) {
 
 	// This will register all of the paths under the proxy prefix, except the auth only path so that no cache headers
 	// are not applied.
-	fmt.Printf("Simeon: Calling 'buildProxySubrouter' with subrpoter '%v'\n", r.PathPrefix(proxyPrefix).Subrouter())
+	fmt.Printf("Simeon: Calling 'buildProxySubrouter' with proxyPrefix '%v', and subrpoter '%v'\n", proxyPrefix, r.PathPrefix(proxyPrefix).Subrouter())
 	p.buildProxySubrouter(r.PathPrefix(proxyPrefix).Subrouter())
 
 	// Register serveHTTP last so it catches anything that isn't already caught earlier.
